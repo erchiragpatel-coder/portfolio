@@ -1,34 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chirag Patel Portfolio</title>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 body{
 margin:0;
-font-family:Arial, sans-serif;
-background:linear-gradient(120deg,#000428,#004e92);
+font-family:'Segoe UI', sans-serif;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:white;
 text-align:center;
 }
 
+/* Header / Hero */
 header{
 padding:60px 20px;
 }
-
 header img{
-width:170px;
+width:180px;
 border-radius:50%;
 border:5px solid #00e6ff;
-box-shadow:0 0 25px #00e6ff;
+box-shadow:0 0 30px #00e6ff;
 margin-top:20px;
+transition:0.3s;
 }
-
+header img:hover{
+transform:scale(1.05);
+}
 h1{
-font-size:40px;
+font-size:42px;
 letter-spacing:2px;
+margin:10px 0;
+}
+h2{
+margin:10px 0;
 }
 
+/* Section */
 section{
 padding:40px 20px;
 }
@@ -36,8 +46,12 @@ padding:40px 20px;
 .container{
 max-width:1000px;
 margin:auto;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
 }
 
+/* Cards */
 .card{
 background:white;
 color:black;
@@ -45,37 +59,86 @@ padding:30px;
 margin:20px;
 border-radius:20px;
 box-shadow:0 8px 25px rgba(0,0,0,0.4);
+width:280px;
 transition:0.3s;
 }
-
 .card:hover{
 transform:scale(1.05);
 }
 
-button{
-padding:14px 35px;
+/* Buttons */
+button, .btn{
+padding:12px 30px;
 border:none;
 border-radius:30px;
 background:linear-gradient(45deg,#00e6ff,#0072ff);
 color:white;
-font-size:18px;
+font-size:16px;
 cursor:pointer;
-margin-top:20px;
+margin-top:15px;
 box-shadow:0 0 15px #00e6ff;
+transition:0.3s;
+}
+button:hover, .btn:hover{
+transform:scale(1.05);
+text-decoration:none;
+}
+
+/* Projects grid */
+.projects{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+/* Project card images */
+.projects .card img{
+width:100%;
+border-radius:15px;
+margin-bottom:15px;
+}
+
+/* Social Icons */
+.social{
+margin-top:15px;
+}
+.social a{
+color:white;
+font-size:24px;
+margin:0 10px;
+transition:0.3s;
+}
+.social a:hover{
+color:#00e6ff;
+transform:scale(1.2);
+}
+
+/* Responsive */
+@media(max-width:900px){
+.container, .projects{
+flex-direction:column;
+align-items:center;
+}
+.card{
+width:90%;
+}
 }
 </style>
 </head>
-
 <body>
 
 <header>
 <h1>Chirag Patel</h1>
 <p>Cyber Security Enthusiast</p>
 <img src="photo.jpg" alt="Chirag Patel Photo">
+<div class="social">
+<a href="https://github.com/erchiragpatel-coder" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/erchiragpatel" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="mailto:873486chiragpatelgreer@gmail.com"><i class="fas fa-envelope"></i></a>
+</div>
 </header>
 
 <section class="container">
-
 <div class="card">
 <h2>About Me</h2>
 <p>I am a passionate Cyber Security Enthusiast skilled in penetration testing and vulnerability assessment.</p>
@@ -92,7 +155,39 @@ box-shadow:0 0 15px #00e6ff;
 <p>Phone: 6354147418</p>
 <button>Hire Me</button>
 </div>
+</section>
 
+<section>
+<h2>Projects</h2>
+<div class="projects">
+<div class="card">
+<img src="project1.jpg" alt="Project 1">
+<h3>Project 1</h3>
+<p>Penetration testing project with detailed vulnerability report.</p>
+<a href="#" target="_blank" class="btn">View</a>
+<a href="#" target="_blank" class="btn">GitHub</a>
+</div>
+
+<div class="card">
+<img src="project2.jpg" alt="Project 2">
+<h3>Project 2</h3>
+<p>Automated security scanning using Nmap and Nikto tools.</p>
+<a href="#" target="_blank" class="btn">View</a>
+<a href="#" target="_blank" class="btn">GitHub</a>
+</div>
+
+<div class="card">
+<img src="project3.jpg" alt="Project 3">
+<h3>Project 3</h3>
+<p>Web application vulnerability assessment with OWASP ZAP.</p>
+<a href="#" target="_blank" class="btn">View</a>
+<a href="#" target="_blank" class="btn">GitHub</a>
+</div>
+</div>
+</section>
+
+<section>
+<button class="btn"><a href="resume.pdf" style="color:white; text-decoration:none;" download>Download Resume</a></button>
 </section>
 
 </body>
