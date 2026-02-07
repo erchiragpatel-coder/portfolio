@@ -3,42 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chirag Patel Portfolio</title>
+<title>Chirag Patel | Cyber Security Portfolio</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
 <style>
 body{
 margin:0;
-font-family:'Segoe UI', sans-serif;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:white;
+font-family:'Courier New', monospace;
+background:black;
+color:#00ff9c;
 text-align:center;
+overflow-x:hidden;
 }
 
-/* Header / Hero */
+/* MATRIX CANVAS */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* Header */
 header{
 padding:60px 20px;
 }
+
 header img{
 width:180px;
 border-radius:50%;
-border:5px solid #00e6ff;
-box-shadow:0 0 30px #00e6ff;
+border:3px solid #00ff9c;
+box-shadow:0 0 25px #00ff9c;
 margin-top:20px;
-transition:0.3s;
-}
-header img:hover{
-transform:scale(1.05);
-}
-h1{
-font-size:42px;
-letter-spacing:2px;
-margin:10px 0;
-}
-h2{
-margin:10px 0;
 }
 
-/* Section */
+/* Sections */
 section{
 padding:40px 20px;
 }
@@ -53,87 +52,78 @@ justify-content:center;
 
 /* Cards */
 .card{
-background:white;
-color:black;
+background:#0a0a0a;
+color:#00ff9c;
 padding:30px;
 margin:20px;
-border-radius:20px;
-box-shadow:0 8px 25px rgba(0,0,0,0.4);
+border-radius:15px;
+border:1px solid #00ff9c;
+box-shadow:0 0 15px #00ff9c;
 width:280px;
 transition:0.3s;
 }
+
 .card:hover{
 transform:scale(1.05);
+box-shadow:0 0 30px #00ff9c;
 }
 
 /* Buttons */
 button, .btn{
 padding:12px 30px;
-border:none;
 border-radius:30px;
-background:linear-gradient(45deg,#00e6ff,#0072ff);
-color:white;
-font-size:16px;
+background:black;
+color:#00ff9c;
+border:1px solid #00ff9c;
 cursor:pointer;
 margin-top:15px;
-box-shadow:0 0 15px #00e6ff;
+box-shadow:0 0 10px #00ff9c;
 transition:0.3s;
-}
-button:hover, .btn:hover{
-transform:scale(1.05);
 text-decoration:none;
+display:inline-block;
 }
 
-/* Projects grid */
+button:hover, .btn:hover{
+background:#00ff9c;
+color:black;
+}
+
+/* Projects */
 .projects{
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
 }
 
-/* Project card images */
-.projects .card img{
+.projects img{
 width:100%;
-border-radius:15px;
-margin-bottom:15px;
+border-radius:10px;
+margin-bottom:10px;
 }
 
-/* Social Icons */
+/* Social icons */
 .social{
 margin-top:15px;
 }
 .social a{
-color:white;
+color:#00ff9c;
 font-size:24px;
 margin:0 10px;
-transition:0.3s;
-}
-.social a:hover{
-color:#00e6ff;
-transform:scale(1.2);
-}
-
-/* Responsive */
-@media(max-width:900px){
-.container, .projects{
-flex-direction:column;
-align-items:center;
-}
-.card{
-width:90%;
-}
 }
 </style>
 </head>
+
 <body>
+
+<canvas id="matrix"></canvas>
 
 <header>
 <h1>Chirag Patel</h1>
 <p>Cyber Security Enthusiast</p>
-<img src="photo.jpg" alt="Chirag Patel Photo">
+<img src="photo.jpg">
+
 <div class="social">
-<a href="https://github.com/erchiragpatel-coder" target="_blank"><i class="fab fa-github"></i></a>
-<a href="https://linkedin.com/in/erchiragpatel" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://github.com/erchiragpatel-coder"><i class="fab fa-github"></i></a>
 <a href="mailto:873486chiragpatelgreer@gmail.com"><i class="fas fa-envelope"></i></a>
 </div>
 </header>
@@ -141,7 +131,7 @@ width:90%;
 <section class="container">
 <div class="card">
 <h2>About Me</h2>
-<p>I am a passionate Cyber Security Enthusiast skilled in penetration testing and vulnerability assessment.</p>
+<p>Cyber Security enthusiast skilled in penetration testing and vulnerability assessment.</p>
 </div>
 
 <div class="card">
@@ -153,42 +143,293 @@ width:90%;
 <h2>Contact</h2>
 <p>Email: 873486chiragpatelgreer@gmail.com</p>
 <p>Phone: 6354147418</p>
-<button>Hire Me</button>
 </div>
 </section>
 
 <section>
 <h2>Projects</h2>
+
 <div class="projects">
+
 <div class="card">
-<img src="project1.jpg" alt="Project 1">
-<h3>Project 1</h3>
-<p>Penetration testing project with detailed vulnerability report.</p>
-<a href="#" target="_blank" class="btn">View</a>
-<a href="#" target="_blank" class="btn">GitHub</a>
+<img src="project1.jpg">
+<h3>Penetration Testing</h3>
+<p>Full vulnerability assessment project.</p>
+<a href="#" class="btn">GitHub</a>
 </div>
 
 <div class="card">
-<img src="project2.jpg" alt="Project 2">
-<h3>Project 2</h3>
-<p>Automated security scanning using Nmap and Nikto tools.</p>
-<a href="#" target="_blank" class="btn">View</a>
-<a href="#" target="_blank" class="btn">GitHub</a>
+<img src="project2.jpg">
+<h3>Nmap Automation</h3>
+<p>Automated scanning tool.</p>
+<a href="#" class="btn">GitHub</a>
 </div>
 
 <div class="card">
-<img src="project3.jpg" alt="Project 3">
-<h3>Project 3</h3>
-<p>Web application vulnerability assessment with OWASP ZAP.</p>
-<a href="#" target="_blank" class="btn">View</a>
-<a href="#" target="_blank" class="btn">GitHub</a>
+<img src="project3.jpg">
+<h3>Web Security Audit</h3>
+<p>OWASP vulnerability scanning.</p>
+<a href="#" class="btn">GitHub</a>
 </div>
+
 </div>
 </section>
 
 <section>
-<button class="btn"><a href="resume.pdf" style="color:white; text-decoration:none;" download>Download Resume</a></button>
+<a href="resume.pdf" class="btn" download>Download Resume</a>
 </section>
+
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+const letters = "01";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+for(let x=0;x<columns;x++)
+drops[x]=1;
+
+function draw(){
+ctx.fillStyle = "rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#00ff9c";
+ctx.font = fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+const text = letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}
+}
+setInterval(draw,35);
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chirag Patel | Cyber Security Portfolio</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Courier New', monospace;
+background:black;
+color:#00ff9c;
+text-align:center;
+overflow-x:hidden;
+}
+
+/* MATRIX CANVAS */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* Header */
+header{
+padding:60px 20px;
+}
+
+header img{
+width:180px;
+border-radius:50%;
+border:3px solid #00ff9c;
+box-shadow:0 0 25px #00ff9c;
+margin-top:20px;
+}
+
+/* Sections */
+section{
+padding:40px 20px;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+/* Cards */
+.card{
+background:#0a0a0a;
+color:#00ff9c;
+padding:30px;
+margin:20px;
+border-radius:15px;
+border:1px solid #00ff9c;
+box-shadow:0 0 15px #00ff9c;
+width:280px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+box-shadow:0 0 30px #00ff9c;
+}
+
+/* Buttons */
+button, .btn{
+padding:12px 30px;
+border-radius:30px;
+background:black;
+color:#00ff9c;
+border:1px solid #00ff9c;
+cursor:pointer;
+margin-top:15px;
+box-shadow:0 0 10px #00ff9c;
+transition:0.3s;
+text-decoration:none;
+display:inline-block;
+}
+
+button:hover, .btn:hover{
+background:#00ff9c;
+color:black;
+}
+
+/* Projects */
+.projects{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.projects img{
+width:100%;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+/* Social icons */
+.social{
+margin-top:15px;
+}
+.social a{
+color:#00ff9c;
+font-size:24px;
+margin:0 10px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<header>
+<h1>Chirag Patel</h1>
+<p>Cyber Security Enthusiast</p>
+<img src="photo.jpg">
+
+<div class="social">
+<a href="https://github.com/erchiragpatel-coder"><i class="fab fa-github"></i></a>
+<a href="mailto:873486chiragpatelgreer@gmail.com"><i class="fas fa-envelope"></i></a>
+</div>
+</header>
+
+<section class="container">
+<div class="card">
+<h2>About Me</h2>
+<p>Cyber Security enthusiast skilled in penetration testing and vulnerability assessment.</p>
+</div>
+
+<div class="card">
+<h2>Skills</h2>
+<p>Nmap, Burp Suite, SQLMap, OWASP ZAP, Dirsearch, Nikto</p>
+</div>
+
+<div class="card">
+<h2>Contact</h2>
+<p>Email: 873486chiragpatelgreer@gmail.com</p>
+<p>Phone: 6354147418</p>
+</div>
+</section>
+
+<section>
+<h2>Projects</h2>
+
+<div class="projects">
+
+<div class="card">
+<img src="project1.jpg">
+<h3>Penetration Testing</h3>
+<p>Full vulnerability assessment project.</p>
+<a href="#" class="btn">GitHub</a>
+</div>
+
+<div class="card">
+<img src="project2.jpg">
+<h3>Nmap Automation</h3>
+<p>Automated scanning tool.</p>
+<a href="#" class="btn">GitHub</a>
+</div>
+
+<div class="card">
+<img src="project3.jpg">
+<h3>Web Security Audit</h3>
+<p>OWASP vulnerability scanning.</p>
+<a href="#" class="btn">GitHub</a>
+</div>
+
+</div>
+</section>
+
+<section>
+<a href="resume.pdf" class="btn" download>Download Resume</a>
+</section>
+
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+const letters = "01";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+for(let x=0;x<columns;x++)
+drops[x]=1;
+
+function draw(){
+ctx.fillStyle = "rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#00ff9c";
+ctx.font = fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+const text = letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}
+}
+setInterval(draw,35);
+</script>
 
 </body>
 </html>
