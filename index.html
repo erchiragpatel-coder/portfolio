@@ -3,209 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chirag Patel | Cyber Portfolio</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<title>Chirag Patel | Cyber Security</title>
+
 <style>
 body{
-  margin:0;
-  font-family:'Courier New', monospace;
-  background:black;
-  color:#00ff9c;
-  overflow-x:hidden;
-  cursor:none;
+margin:0;
+font-family:Courier New, monospace;
+background:black;
+color:#00ff9c;
+text-align:center;
+overflow-x:hidden;
 }
 
-/* Neon Cursor */
-.cursor{
-  position:absolute;
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  background:#00ff9c;
-  pointer-events:none;
-  box-shadow:0 0 12px #00ff9c,0 0 24px #00ff9c;
-  z-index:9999;
+/* Loader */
+#loader{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+z-index:9999;
+animation:hide 3s forwards 2s;
+}
+@keyframes hide{
+to{opacity:0;visibility:hidden;}
 }
 
-/* Matrix Canvas */
-#matrix{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:-3;
+/* Matrix */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
-/* Animated code background */
-#code-bg{
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  z-index:-4;
-  color:#00ff9c;
-  font-family:monospace;
-  font-size:14px;
-  line-height:16px;
-  overflow:hidden;
-  opacity:0.05;
+/* Navbar */
+nav{
+position:fixed;
+width:100%;
+top:0;
+background:rgba(0,0,0,0.8);
+padding:15px;
+box-shadow:0 0 15px #00ff9c;
+}
+nav a{
+color:#00ff9c;
+margin:0 20px;
+text-decoration:none;
+font-size:18px;
 }
 
 /* Header */
 header{
-  padding:20px;
-  text-align:center;
-}
-header h1{
-  font-size:48px;
-  color:#ff00ff;
-  text-shadow:0 0 10px #ff00ff,0 0 20px #008cff;
-  animation:glow 2s ease-in-out infinite alternate;
-}
-header p{
-  font-size:20px;
-  color:#00ffff;
-  text-shadow:0 0 5px #00ffff,0 0 10px #008cff;
+padding:120px 20px 60px;
 }
 
-/* Glow animation */
-@keyframes glow{
-  0%{text-shadow:0 0 5px #ff00ff,0 0 10px #008cff;}
-  50%{text-shadow:0 0 20px #ff00ff,0 0 30px #008cff;}
-  100%{text-shadow:0 0 5px #ff00ff,0 0 10px #008cff;}
+header img{
+width:180px;
+border-radius:50%;
+border:3px solid #00ff9c;
+box-shadow:0 0 30px #00ff9c;
 }
 
-/* Social icons */
-.social a{
-  color:white;
-  font-size:24px;
-  margin:0 12px;
-  transition:0.3s;
-}
-.social a:hover{
-  color:#ff00ff;
-  text-shadow:0 0 10px #ff00ff,0 0 20px #008cff;
-}
-
-/* Terminal Intro */
-#terminal{
-  font-size:20px;
-  color:#00ff9c;
-  padding:50px 20px 20px 20px;
-  min-height:40px;
-  white-space:pre-wrap;
-}
-
-/* Container & Cards */
+/* Cards */
 .container{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  padding-bottom:50px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+max-width:1100px;
+margin:auto;
 }
 
 .card{
-  background: rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  padding:30px;
-  margin:20px;
-  border-radius:20px;
-  width:280px;
-  border:1px solid rgba(255,255,255,0.2);
-  box-shadow:0 0 30px rgba(0,140,255,.4);
-  transition: transform 0.4s, box-shadow 0.4s;
-  cursor:pointer;
+background:#0a0a0a;
+padding:25px;
+margin:20px;
+border-radius:15px;
+border:1px solid #00ff9c;
+width:280px;
+box-shadow:0 0 15px #00ff9c;
+transition:0.3s;
 }
 .card:hover{
-  transform:translateY(-10px) scale(1.05);
-  box-shadow:0 0 50px #ff00ff,0 0 70px #008cff;
+transform:scale(1.05);
+box-shadow:0 0 35px #00ff9c;
 }
 
 /* Buttons */
 .btn{
-  display:inline-block;
-  padding:14px 30px;
-  margin-top:20px;
-  border-radius:30px;
-  text-decoration:none;
-  color:white;
-  background:linear-gradient(45deg,#ff00ff,#008cff);
-  box-shadow:0 0 25px #ff00ff;
-  transition:0.3s;
+padding:12px 28px;
+border:1px solid #00ff9c;
+color:#00ff9c;
+text-decoration:none;
+border-radius:25px;
+display:inline-block;
+margin-top:15px;
 }
 .btn:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 40px #008cff;
-}
-
-/* Projects */
-.projects{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.projects img{
-  width:100%;
-  border-radius:10px;
-  margin-bottom:10px;
-  cursor:pointer;
-  transition:transform 0.3s;
-}
-.projects img:hover{
-  transform:scale(1.05);
-}
-
-/* Popup */
-#popup{
-  position:fixed;
-  top:0; left:0; width:100%; height:100%;
-  background: rgba(0,0,0,0.9);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-#popup img{
-  max-width:80%;
-  max-height:80%;
-  border:3px solid #ff00ff;
-  box-shadow:0 0 50px #ff00ff,0 0 70px #008cff;
-  border-radius:10px;
-}
-
-/* Scroll reveal */
-.reveal{
-  opacity:0;
-  transform:translateY(50px);
-  transition:all 1s ease;
-}
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
+background:#00ff9c;
+color:black;
 }
 </style>
 </head>
 
 <body>
-<div class="cursor" id="cursor"></div>
-<div id="code-bg"></div>
+
+<div id="loader">Initializing System...</div>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">Projects</a>
+<a href="#">Contact</a>
+</nav>
+
 <canvas id="matrix"></canvas>
 
 <header>
-<h1>Chirag Patel</h1>
+<h1 id="typing"></h1>
 <p>Cyber Security Enthusiast</p>
-<div class="social">
-<a href="#"><i class="fab fa-github"></i></a>
-<a href="#"><i class="fas fa-envelope"></i></a>
-</div>
+<img src="photo.jpg">
 </header>
 
-<div id="terminal"></div>
-
-<section class="container reveal">
+<section class="container">
 <div class="card">
 <h2>About Me</h2>
-<p>Cyber security enthusiast skilled in penetration testing and vulnerability assessment.</p>
+<p>Passionate cyber security enthusiast skilled in penetration testing and vulnerability assessment.</p>
 </div>
 
 <div class="card">
@@ -216,123 +141,60 @@ header p{
 <div class="card">
 <h2>Contact</h2>
 <p>Email: 873486chiragpatelgreer@gmail.com</p>
-<p>Phone: +91 6354147418</p>
+<p>Phone: 6354147418</p>
+</div>
+</section>
+
+<h2>Projects</h2>
+<section class="container">
+<div class="card"><h3>Penetration Testing</h3></div>
+<div class="card"><h3>Nmap Automation</h3></div>
+<div class="card"><h3>Web Security Audit</h3></div>
+<div class="card"><h3>SQL Injection Scanner</h3></div>
+</section>
+
+<section>
 <a href="resume.pdf" class="btn" download>Download Resume</a>
-</div>
 </section>
-
-<section class="projects container reveal">
-<div class="card">
-<img src="project1.jpg" alt="Project 1" onclick="openPopup(this.src)">
-<h3>Penetration Testing</h3>
-<p>Full vulnerability assessment project.</p>
-<a href="#" class="btn">GitHub</a>
-</div>
-
-<div class="card">
-<img src="project2.jpg" alt="Project 2" onclick="openPopup(this.src)">
-<h3>Nmap Automation</h3>
-<p>Automated scanning tool.</p>
-<a href="#" class="btn">GitHub</a>
-</div>
-
-<div class="card">
-<img src="project3.jpg" alt="Project 3" onclick="openPopup(this.src)">
-<h3>Web Security Audit</h3>
-<p>OWASP vulnerability scanning.</p>
-<a href="#" class="btn">GitHub</a>
-</div>
-</section>
-
-<div id="popup" onclick="closePopup()">
-<img src="" id="popup-img">
-</div>
 
 <script>
-/* Cursor */
-const cursor = document.getElementById("cursor");
-document.addEventListener("mousemove", e=>{
-  cursor.style.left = e.pageX+"px";
-  cursor.style.top = e.pageY+"px";
-});
+/* Typing */
+let text="Chirag Patel";
+let i=0;
+function typing(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,100);
+}}
+typing();
 
-/* Terminal typing intro */
-const terminalText = `Initializing Cyber Portfolio...\nLoading Modules...\nWelcome to Chirag Patel's Cyber Space!\n`;
-let tIndex=0;
-function terminalType(){
-  if(tIndex<terminalText.length){
-    document.getElementById('terminal').innerHTML += terminalText.charAt(tIndex);
-    tIndex++;
-    setTimeout(terminalType,50);
-  }
-}
-terminalType();
+/* Matrix */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
 
-/* Scroll reveal */
-const reveals = document.querySelectorAll('.reveal');
-window.addEventListener('scroll',()=>{
-  for(let r of reveals){
-    let top = r.getBoundingClientRect().top;
-    if(top < window.innerHeight - 50) r.classList.add('active');
-  }
-});
-
-/* Project popup */
-function openPopup(src){
-  document.getElementById('popup').style.display='flex';
-  document.getElementById('popup-img').src=src;
-}
-function closePopup(){
-  document.getElementById('popup').style.display='none';
-}
-
-/* Matrix rain */
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const letters = "01";
-const fontSize = 14;
-const columns = canvas.width/fontSize;
+const letters="01";
+const fontSize=14;
+const columns=canvas.width/fontSize;
 const drops=[];
 for(let x=0;x<columns;x++) drops[x]=1;
 
 function draw(){
-  ctx.fillStyle="rgba(0,0,0,0.05)";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="#00ff9c";
-  ctx.font=fontSize+"px monospace";
-  for(let i=0;i<drops.length;i++){
-    const text = letters[Math.floor(Math.random()*letters.length)];
-    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-    if(drops[i]*fontSize>canvas.height && Math.random()>0.975) drops[i]=0;
-    drops[i]++;
-  }
-}
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#00ff9c";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+const text=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975) drops[i]=0;
+drops[i]++;
+}}
 setInterval(draw,35);
-
-/* Matrix speed change on hover */
-document.querySelectorAll('.card').forEach(card=>{
-  card.addEventListener('mouseenter',()=>{drops.forEach((d,i)=>drops[i]+=Math.random()*5)});
-});
-
-/* Code background effect */
-const codeBg = document.getElementById("code-bg");
-let codeLines = [];
-for(let i=0;i<200;i++){
-  let line="";
-  for(let j=0;j<80;j++){
-    line += Math.random()>0.5?"0":"1";
-  }
-  codeLines.push(line);
-}
-function drawCodeBg(){
-  codeBg.innerHTML = codeLines.join("\n");
-  codeLines.push(codeLines.shift());
-  requestAnimationFrame(drawCodeBg);
-}
-drawCodeBg();
 </script>
+
 </body>
 </html>
