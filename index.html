@@ -7,7 +7,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <style>
-/* -------- Body & Fonts -------- */
+/* -------- Body -------- */
 body{
 margin:0;
 font-family:'Courier New', monospace;
@@ -19,14 +19,25 @@ scroll-behavior:smooth;
 cursor:crosshair;
 }
 
-/* -------- MATRIX + PARTICLES CANVAS -------- */
+/* -------- Canvases -------- */
 #matrix, #particles{
 position:fixed;
 top:0;
 left:0;
-z-index:-1;
+z-index:-2;
 width:100%;
 height:100%;
+}
+
+/* -------- Neon Trail Cursor -------- */
+#trail{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:-1;
 }
 
 /* -------- Header -------- */
@@ -49,28 +60,16 @@ transform: scale(1.1);
 box-shadow:0 0 50px #00ff9c;
 }
 
-/* -------- Hero Text Glitch + Neon -------- */
+/* -------- Hero Text Rainbow Glitch -------- */
 .typing-text{
 font-size:28px;
 height:35px;
 white-space:nowrap;
 overflow:hidden;
 border-right:3px solid #00ff9c;
-animation: typing 3s steps(30) infinite, blink 0.7s step-end infinite;
+animation: typing 3s steps(30) infinite, blink 0.7s step-end infinite, rainbow 3s infinite linear;
 margin:10px 0 0;
 position:relative;
-color:#00ff9c;
-}
-.typing-text::after{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-top:0;
-left:0;
-background:rgba(0,255,156,0.1);
-mix-blend-mode:screen;
-animation: glitch 1s infinite;
 }
 @keyframes typing{
 0%,100%{width:0;}
@@ -79,13 +78,12 @@ animation: glitch 1s infinite;
 @keyframes blink{
 50%{border-color:transparent;}
 }
-@keyframes glitch{
-0%{transform:translate(0);}
-20%{transform:translate(-2px,2px);}
-40%{transform:translate(2px,-2px);}
-60%{transform:translate(-2px,-2px);}
-80%{transform:translate(2px,2px);}
-100%{transform:translate(0);}
+@keyframes rainbow{
+0%{color:#00ff9c;}
+25%{color:#00ffff;}
+50%{color:#ff00ff;}
+75%{color:#ff9900;}
+100%{color:#00ff9c;}
 }
 
 /* -------- Sections -------- */
@@ -95,7 +93,6 @@ opacity:0;
 transform:translateY(30px);
 transition: all 1s ease;
 }
-
 section.visible{
 opacity:1;
 transform:translateY(0);
@@ -199,6 +196,7 @@ color:white;
 
 <canvas id="matrix"></canvas>
 <canvas id="particles"></canvas>
+<canvas id="trail"></canvas>
 
 <header>
 <h1>Chirag Patel</h1>
@@ -262,7 +260,7 @@ color:white;
 </section>
 
 <script>
-/* -------- MATRIX BACKGROUND -------- */
+/* -------- MATRIX -------- */
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -285,12 +283,11 @@ drops[i]++;
 }
 }
 
-/* -------- FLOATING PARTICLES -------- */
+/* -------- PARTICLES -------- */
 const particleCanvas = document.getElementById("particles");
 const pctx = particleCanvas.getContext("2d");
 particleCanvas.width = window.innerWidth;
 particleCanvas.height = window.innerHeight;
-
 const particles = [];
 for(let i=0;i<120;i++){
 particles.push({
@@ -301,7 +298,6 @@ dx:(Math.random()-0.5)*1.5,
 dy:(Math.random()-0.5)*1.5
 });
 }
-
 function drawParticles(){
 pctx.clearRect(0,0,particleCanvas.width,particleCanvas.height);
 particles.forEach(p=>{
@@ -318,14 +314,33 @@ if(p.y<0)p.y=particleCanvas.height;
 });
 }
 
+/* -------- CURSOR NEON TRAIL -------- */
+const trailCanvas = document.getElementById("trail");
+const tctx = trailCanvas.getContext("2d");
+trailCanvas.width = window.innerWidth;
+trailCanvas.height = window.innerHeight;
+const trail = [];
+window.addEventListener("mousemove",function(e){
+trail.push({x:e.clientX,y:e.clientY,alpha:1});
+});
+function drawTrail(){
+tctx.clearRect(0,0,trailCanvas.width,trailCanvas.height);
+for(let i=0;i<trail.length;i++){
+const t = trail[i];
+tctx.beginPath();
+tctx.arc(t.x,t.y,5,0,Math.PI*2);
+tctx.fillStyle = `rgba(0,255,156,${t.alpha})`;
+tctx.fill();
+t.alpha -=0.03;
+if(t.alpha<=0) trail.splice(i,1);
+}
+}
+
 /* -------- FADE-IN SECTIONS -------- */
 function fadeInSections(){
-const sections = document.querySelectorAll("section");
-sections.forEach(sec=>{
+document.querySelectorAll("section").forEach(sec=>{
 const rect = sec.getBoundingClientRect();
-if(rect.top < window.innerHeight-100){
-sec.classList.add("visible");
-}
+if(rect.top < window.innerHeight-100) sec.classList.add("visible");
 });
 }
 
@@ -333,6 +348,7 @@ sec.classList.add("visible");
 window.onload = function(){
 setInterval(drawMatrix,35);
 setInterval(drawParticles,50);
+setInterval(drawTrail,25);
 fadeInSections();
 window.addEventListener("scroll",fadeInSections);
 }
