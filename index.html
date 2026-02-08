@@ -7,6 +7,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <style>
+/* -------- Body & Fonts -------- */
 body{
 margin:0;
 font-family:'Courier New', monospace;
@@ -15,20 +16,24 @@ color:#00ff9c;
 text-align:center;
 overflow-x:hidden;
 scroll-behavior:smooth;
+cursor:crosshair;
 }
 
-/* MATRIX CANVAS */
-canvas{
+/* -------- MATRIX + PARTICLES CANVAS -------- */
+#matrix, #particles{
 position:fixed;
 top:0;
 left:0;
 z-index:-1;
+width:100%;
+height:100%;
 }
 
-/* Header */
+/* -------- Header -------- */
 header{
 padding:60px 20px;
 position:relative;
+z-index:1;
 }
 
 header img{
@@ -37,22 +42,24 @@ border-radius:50%;
 border:3px solid #00ff9c;
 box-shadow:0 0 25px #00ff9c;
 margin-top:20px;
-transition: transform 0.3s;
+transition: transform 0.3s, box-shadow 0.5s;
 }
 header img:hover{
 transform: scale(1.1);
+box-shadow:0 0 50px #00ff9c;
 }
 
-/* Hero typing + glitch effect */
+/* -------- Hero Text Glitch + Neon -------- */
 .typing-text{
-font-size:22px;
-height:30px;
-overflow:hidden;
+font-size:28px;
+height:35px;
 white-space:nowrap;
+overflow:hidden;
 border-right:3px solid #00ff9c;
 animation: typing 3s steps(30) infinite, blink 0.7s step-end infinite;
 margin:10px 0 0;
 position:relative;
+color:#00ff9c;
 }
 .typing-text::after{
 content:"";
@@ -65,7 +72,6 @@ background:rgba(0,255,156,0.1);
 mix-blend-mode:screen;
 animation: glitch 1s infinite;
 }
-
 @keyframes typing{
 0%,100%{width:0;}
 50%{width:100%;}
@@ -82,7 +88,7 @@ animation: glitch 1s infinite;
 100%{transform:translate(0);}
 }
 
-/* Sections */
+/* -------- Sections -------- */
 section{
 padding:40px 20px;
 opacity:0;
@@ -95,6 +101,7 @@ opacity:1;
 transform:translateY(0);
 }
 
+/* -------- Container -------- */
 .container{
 max-width:1000px;
 margin:auto;
@@ -103,7 +110,7 @@ flex-wrap:wrap;
 justify-content:center;
 }
 
-/* Cards */
+/* -------- Cards -------- */
 .card{
 background:#0a0a0a;
 color:#00ff9c;
@@ -113,27 +120,20 @@ border-radius:15px;
 border:1px solid #00ff9c;
 box-shadow:0 0 15px #00ff9c;
 width:280px;
-transition:0.3s;
+transition:0.5s;
 position:relative;
+animation: pulse 2.5s infinite;
 }
-.card::after{
-content:"";
-position:absolute;
-top:-5px; left:-5px; right:-5px; bottom:-5px;
-border-radius:20px;
-box-shadow:0 0 20px #00ff9c;
-opacity:0;
-transition:0.3s;
-}
-.card:hover::after{
-opacity:0.3;
+@keyframes pulse{
+0%,100%{box-shadow:0 0 15px #00ff9c;}
+50%{box-shadow:0 0 40px #00ff9c;}
 }
 .card:hover{
-transform:scale(1.05);
-box-shadow:0 0 30px #00ff9c, 0 0 60px rgba(0,255,156,0.2);
+transform:scale(1.07);
+box-shadow:0 0 60px #00ff9c, 0 0 120px rgba(0,255,156,0.2);
 }
 
-/* Buttons / Links */
+/* -------- Buttons / Links -------- */
 .btn{
 padding:12px 30px;
 border-radius:30px;
@@ -147,26 +147,15 @@ transition:0.3s;
 text-decoration:none;
 display:inline-block;
 position:relative;
-}
-.btn::after{
-content:"";
-position:absolute;
-top:-5px; left:-5px; right:-5px; bottom:-5px;
-border-radius:30px;
-box-shadow:0 0 20px #00ff9c;
-opacity:0;
-transition:0.3s;
-}
-.btn:hover::after{
-opacity:0.3;
+animation: pulse 2.5s infinite;
 }
 .btn:hover{
 background:#00ff9c;
 color:black;
-box-shadow:0 0 20px #00ff9c, 0 0 40px rgba(0,255,156,0.2);
+box-shadow:0 0 35px #00ff9c, 0 0 70px rgba(0,255,156,0.3);
 }
 
-/* Projects */
+/* -------- Projects -------- */
 .projects{
 display:flex;
 flex-wrap:wrap;
@@ -180,11 +169,11 @@ margin-bottom:10px;
 transition: transform 0.3s, box-shadow 0.3s;
 }
 .projects img:hover{
-transform: scale(1.05);
-box-shadow:0 0 25px #00ff9c;
+transform: scale(1.07);
+box-shadow:0 0 45px #00ff9c;
 }
 
-/* Social icons */
+/* -------- Social icons -------- */
 .social{
 margin-top:15px;
 }
@@ -197,12 +186,19 @@ transition: color 0.3s;
 .social a:hover{
 color:white;
 }
+
+/* -------- Responsive -------- */
+@media(max-width:600px){
+.container{flex-direction:column;}
+.projects{flex-direction:column;}
+}
 </style>
 </head>
 
 <body>
 
 <canvas id="matrix"></canvas>
+<canvas id="particles"></canvas>
 
 <header>
 <h1>Chirag Patel</h1>
@@ -266,17 +262,17 @@ color:white;
 </section>
 
 <script>
-/* MATRIX ANIMATION */
+/* -------- MATRIX BACKGROUND -------- */
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
-canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 const letters = "01";
 const fontSize = 14;
 const columns = canvas.width / fontSize;
 const drops = [];
 for(let x=0;x<columns;x++) drops[x]=1;
-function draw(){
+function drawMatrix(){
 ctx.fillStyle = "rgba(0,0,0,0.05)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="#00ff9c";
@@ -288,12 +284,43 @@ if(drops[i]*fontSize>canvas.height && Math.random()>0.975) drops[i]=0;
 drops[i]++;
 }
 }
-window.onload = function(){
-setInterval(draw,35);
 
-/* FADE-IN SECTIONS ON SCROLL */
+/* -------- FLOATING PARTICLES -------- */
+const particleCanvas = document.getElementById("particles");
+const pctx = particleCanvas.getContext("2d");
+particleCanvas.width = window.innerWidth;
+particleCanvas.height = window.innerHeight;
+
+const particles = [];
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*particleCanvas.width,
+y:Math.random()*particleCanvas.height,
+radius:Math.random()*3+1,
+dx:(Math.random()-0.5)*1.5,
+dy:(Math.random()-0.5)*1.5
+});
+}
+
+function drawParticles(){
+pctx.clearRect(0,0,particleCanvas.width,particleCanvas.height);
+particles.forEach(p=>{
+pctx.beginPath();
+pctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+pctx.fillStyle="rgba(0,255,156,0.6)";
+pctx.fill();
+p.x+=p.dx;
+p.y+=p.dy;
+if(p.x>particleCanvas.width)p.x=0;
+if(p.x<0)p.x=particleCanvas.width;
+if(p.y>particleCanvas.height)p.y=0;
+if(p.y<0)p.y=particleCanvas.height;
+});
+}
+
+/* -------- FADE-IN SECTIONS -------- */
+function fadeInSections(){
 const sections = document.querySelectorAll("section");
-function checkVisible(){
 sections.forEach(sec=>{
 const rect = sec.getBoundingClientRect();
 if(rect.top < window.innerHeight-100){
@@ -301,8 +328,13 @@ sec.classList.add("visible");
 }
 });
 }
-window.addEventListener("scroll",checkVisible);
-checkVisible();
+
+/* -------- ANIMATION LOOP -------- */
+window.onload = function(){
+setInterval(drawMatrix,35);
+setInterval(drawParticles,50);
+fadeInSections();
+window.addEventListener("scroll",fadeInSections);
 }
 </script>
 
