@@ -6,13 +6,11 @@
 <title>Chirag Patel | Cyber Portfolio</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-/* --- Body & Background --- */
-body {
-  margin: 0;
-  font-family: 'Courier New', monospace;
+body{
+  margin:0;
+  font-family:'Courier New', monospace;
   background:black;
   color:#00ff9c;
-  text-align:center;
   overflow-x:hidden;
   cursor:none;
 }
@@ -29,28 +27,52 @@ body {
   z-index:9999;
 }
 
-/* Matrix canvas */
+/* Matrix Canvas */
 #matrix{
   position:fixed;
   top:0;
   left:0;
   width:100%;
   height:100%;
-  z-index:-2;
+  z-index:-3;
+}
+
+/* Animated code background */
+#code-bg{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  z-index:-4;
+  color:#00ff9c;
+  font-family:monospace;
+  font-size:14px;
+  line-height:16px;
+  overflow:hidden;
+  opacity:0.05;
 }
 
 /* Header */
 header{
-  padding:80px 20px 40px 20px;
+  padding:20px;
+  text-align:center;
 }
 header h1{
   font-size:48px;
   color:#ff00ff;
   text-shadow:0 0 10px #ff00ff,0 0 20px #008cff;
+  animation:glow 2s ease-in-out infinite alternate;
 }
 header p{
   font-size:20px;
   color:#00ffff;
+  text-shadow:0 0 5px #00ffff,0 0 10px #008cff;
+}
+
+/* Glow animation */
+@keyframes glow{
+  0%{text-shadow:0 0 5px #ff00ff,0 0 10px #008cff;}
+  50%{text-shadow:0 0 20px #ff00ff,0 0 30px #008cff;}
+  100%{text-shadow:0 0 5px #ff00ff,0 0 10px #008cff;}
 }
 
 /* Social icons */
@@ -65,7 +87,16 @@ header p{
   text-shadow:0 0 10px #ff00ff,0 0 20px #008cff;
 }
 
-/* Container */
+/* Terminal Intro */
+#terminal{
+  font-size:20px;
+  color:#00ff9c;
+  padding:50px 20px 20px 20px;
+  min-height:40px;
+  white-space:pre-wrap;
+}
+
+/* Container & Cards */
 .container{
   display:flex;
   flex-wrap:wrap;
@@ -73,7 +104,6 @@ header p{
   padding-bottom:50px;
 }
 
-/* Glassmorphism Card */
 .card{
   background: rgba(255,255,255,0.05);
   backdrop-filter:blur(10px);
@@ -85,10 +115,9 @@ header p{
   box-shadow:0 0 30px rgba(0,140,255,.4);
   transition: transform 0.4s, box-shadow 0.4s;
   cursor:pointer;
-  overflow:hidden;
 }
 .card:hover{
-  transform:translateY(-10px);
+  transform:translateY(-10px) scale(1.05);
   box-shadow:0 0 50px #ff00ff,0 0 70px #008cff;
 }
 
@@ -107,14 +136,6 @@ header p{
 .btn:hover{
   transform:scale(1.05);
   box-shadow:0 0 40px #008cff;
-}
-
-/* Animated Typing Intro */
-#intro{
-  font-size:22px;
-  height:28px;
-  color:#00ffff;
-  margin-bottom:30px;
 }
 
 /* Projects */
@@ -152,7 +173,7 @@ header p{
   border-radius:10px;
 }
 
-/* Scroll reveal animation */
+/* Scroll reveal */
 .reveal{
   opacity:0;
   transform:translateY(50px);
@@ -167,6 +188,7 @@ header p{
 
 <body>
 <div class="cursor" id="cursor"></div>
+<div id="code-bg"></div>
 <canvas id="matrix"></canvas>
 
 <header>
@@ -176,8 +198,9 @@ header p{
 <a href="#"><i class="fab fa-github"></i></a>
 <a href="#"><i class="fas fa-envelope"></i></a>
 </div>
-<div id="intro"></div>
 </header>
+
+<div id="terminal"></div>
 
 <section class="container reveal">
 <div class="card">
@@ -228,31 +251,29 @@ header p{
 <script>
 /* Cursor */
 const cursor = document.getElementById("cursor");
-document.addEventListener("mousemove", e => {
-  cursor.style.left = e.pageX + "px";
-  cursor.style.top = e.pageY + "px";
+document.addEventListener("mousemove", e=>{
+  cursor.style.left = e.pageX+"px";
+  cursor.style.top = e.pageY+"px";
 });
 
-/* Typing intro */
-const introText = "Hi, I’m Chirag Patel — Cyber Security Enthusiast.";
-let i=0;
-function typing(){
-  if(i<introText.length){
-    document.getElementById('intro').innerHTML += introText.charAt(i);
-    i++;
-    setTimeout(typing,50);
+/* Terminal typing intro */
+const terminalText = `Initializing Cyber Portfolio...\nLoading Modules...\nWelcome to Chirag Patel's Cyber Space!\n`;
+let tIndex=0;
+function terminalType(){
+  if(tIndex<terminalText.length){
+    document.getElementById('terminal').innerHTML += terminalText.charAt(tIndex);
+    tIndex++;
+    setTimeout(terminalType,50);
   }
 }
-typing();
+terminalType();
 
 /* Scroll reveal */
 const reveals = document.querySelectorAll('.reveal');
 window.addEventListener('scroll',()=>{
   for(let r of reveals){
     let top = r.getBoundingClientRect().top;
-    if(top < window.innerHeight - 50){
-      r.classList.add('active');
-    }
+    if(top < window.innerHeight - 50) r.classList.add('active');
   }
 });
 
@@ -273,15 +294,15 @@ canvas.height = window.innerHeight;
 
 const letters = "01";
 const fontSize = 14;
-const columns = canvas.width / fontSize;
-const drops = [];
+const columns = canvas.width/fontSize;
+const drops=[];
 for(let x=0;x<columns;x++) drops[x]=1;
 
 function draw(){
   ctx.fillStyle="rgba(0,0,0,0.05)";
   ctx.fillRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle="#00ff9c";
-  ctx.font = fontSize+"px monospace";
+  ctx.font=fontSize+"px monospace";
   for(let i=0;i<drops.length;i++){
     const text = letters[Math.floor(Math.random()*letters.length)];
     ctx.fillText(text,i*fontSize,drops[i]*fontSize);
@@ -290,6 +311,28 @@ function draw(){
   }
 }
 setInterval(draw,35);
+
+/* Matrix speed change on hover */
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('mouseenter',()=>{drops.forEach((d,i)=>drops[i]+=Math.random()*5)});
+});
+
+/* Code background effect */
+const codeBg = document.getElementById("code-bg");
+let codeLines = [];
+for(let i=0;i<200;i++){
+  let line="";
+  for(let j=0;j<80;j++){
+    line += Math.random()>0.5?"0":"1";
+  }
+  codeLines.push(line);
+}
+function drawCodeBg(){
+  codeBg.innerHTML = codeLines.join("\n");
+  codeLines.push(codeLines.shift());
+  requestAnimationFrame(drawCodeBg);
+}
+drawCodeBg();
 </script>
 </body>
 </html>
